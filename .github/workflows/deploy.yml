@@ -32,24 +32,24 @@ jobs:
       - name: Docker Build and push
         run: |
           docker build -t k8s:latest .
-          docker tag k8s:latest ${{ secrets.DOCKERHUB_USERNAME }}/k8s:latest
+          docker tag k8s:latest ${{ secrets.rakim_02 }}/k8s:latest
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/k8s:latest
+          docker push ${{ secrets.rakim_02 }}/k8s:latest
         env:
           DOCKER_CLI_ACI: 1
 
       - name: Image scan
-        run: trivy image ${{ secrets.DOCKERHUB_USERNAME }}/k8s:latest > trivyimage.txt
+        run: trivy image ${{ secrets.rakim_02 }}/k8s:latest > trivyimage.txt
 
   deploy:
    needs: build-analyse-scan   
    runs-on: [self-hosted]
    steps:
       - name: docker pull image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/k8s:latest
+        run: docker pull ${{ secrets.rakim_02 }}/k8s:latest
 
       - name: Deploy to container
-        run: docker run -d --name game -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/k8s:latest
+        run: docker run -d --name game -p 3000:3000 ${{ secrets.rakim_02 }}/k8s:latest
 
       - name: Update kubeconfig
         run: aws eks --region eu-west-2 update-kubeconfig --name EKS_CLOUD
