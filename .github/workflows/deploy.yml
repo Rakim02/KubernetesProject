@@ -39,7 +39,7 @@ jobs:
           DOCKER_CLI_ACI: 1
 
       - name: Image scan
-        run: trivy image ${{ secrets.rakim_02 }}/k8s:latest > trivyimage.txt
+        run: trivy image rakim_02/k8s:latest > trivyimage.txt
 
   deploy:
    needs: build-analyse-scan   
