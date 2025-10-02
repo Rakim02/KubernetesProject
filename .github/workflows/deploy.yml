@@ -32,9 +32,9 @@ jobs:
       - name: Docker Build and push
         run: |
           docker build -t k8s:latest .
-          docker tag k8s:latest ${{ secrets.rakim02 }}/k8s:latest
+          docker tag k8s:latest rakim02/k8s:latest
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker push ${{ secrets.rakim02 }}/k8s:latest
+          docker push rakim02/k8s:latest
         env:
           DOCKER_CLI_ACI: 1
 
