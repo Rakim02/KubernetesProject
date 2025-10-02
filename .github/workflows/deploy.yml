@@ -39,14 +39,14 @@ jobs:
           DOCKER_CLI_ACI: 1
 
       - name: Image scan
-        run: trivy image rakim_02/k8s:latest > trivyimage.txt
+        run: trivy image rakim02/k8s:latest > trivyimage.txt
 
   deploy:
    needs: build-analyse-scan   
    runs-on: [self-hosted]
    steps:
       - name: docker pull image
-        run: docker pull ${{ secrets.rakim02 }}/k8s:latest
+        run: docker pull rakim02/k8s:latest
 
       - name: Deploy to container
         run: docker run -d --name game -p 3000:3000 ${{ secrets.rakim02 }}/k8s:latest
