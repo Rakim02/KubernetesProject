@@ -49,7 +49,7 @@ jobs:
         run: docker pull rakim02/k8s:latest
 
       - name: Deploy to container
-        run: docker run -d --name game -p 3000:3000 ${{ secrets.rakim02 }}/k8s:latest
+        run: docker run -d --name game -p 3000:3000 rakim02/k8s:latest
 
       - name: Update kubeconfig
         run: aws eks --region eu-west-2 update-kubeconfig --name EKS_CLOUD
